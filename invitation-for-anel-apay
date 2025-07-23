@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анэль апайға арналған шақыру</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f3f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 500px;
+            padding: 25px;
+            text-align: center;
+        }
+        .lock-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            color: #b399d4;
+        }
+        h1 {
+            color: #8e6c99;
+            margin-bottom: 15px;
+        }
+        .btn {
+            background: linear-gradient(135deg, #b399d4, #9a7faa);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 16px;
+            margin: 20px 0;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(154, 127, 170, 0.3);
+        }
+        .hidden {
+            display: none;
+        }
+        .invitation-card {
+            background: linear-gradient(120deg, #f9f9ff, #f5f0f9);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 5px solid #b399d4;
+        }
+        .students {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        .student {
+            background: #e6d9f2;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+        }
+        .signature {
+            font-style: italic;
+            margin-top: 20px;
+            text-align: right;
+            color: #666;
+        }
+        .question {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f0e6f6;
+            border-radius: 10px;
+        }
+        .options {
+            text-align: left;
+            margin: 15px 0;
+        }
+        .option {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .option:hover {
+            background: #e6d9f2;
+        }
+        .correct {
+            background: #d4edda;
+        }
+        .wrong {
+            background: #f8d7da;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="initialView">
+            <div class="lock-icon">🔒</div>
+            <h1>Құпия шақыру</h1>
+            <p>Құрметті Анэль апай:</p>
+            <p>Біз сізге арнайы құпия шақыру дайындадық!</p>
+            <p>Оны ашу үшін кішкене тесттен өтуіңіз керек.</p>
+            
+            <button class="btn" onclick="startChallenge()">Тестті бастау</button>
+            
+            <div id="challenge" class="hidden">
+                <div class="question">
+                    <p><strong>Неліктен адамдар орындыққа құламай отыра алады?</strong></p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="checkAnswer(this, 'A')">A. Орындық өте қатты болғандықтан, ол адамдардың құлап кетуіне жол бермейді.</div>
+                    <div class="option" onclick="checkAnswer(this, 'B')">B. Өйткені адамның ауырлық күші жойылады</div>
+                    <div class="option" onclick="checkAnswer(this, 'C')">C. Өйткені орындықтың адамдарға жоғары қарай тірек күші бар, ол адамдардың ауырлық күшіне тең және бағыты бойынша қарама-қарсы.</div>
+                    <div class="option" onclick="checkAnswer(this, 'D')">D. Орындықтың сиқыры болғандықтан, ол адамдарды жүзуге мәжбүр етеді</div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="invitationContent" class="hidden">
+            <h1>✨ Арнайы шақыру ✨</h1>
+            <div class="invitation-card">
+                <p>Құрметті <strong>Анэль апай</strong>:</p>
+                <p>Біз <strong>Ділнәр</strong> және <strong>Ғибырат</strong> сізді жұптық жұмысымыздың қорытындысын көрсетуге шақырамыз!</p>
+                
+                <div style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0; text-align: left;">
+                    <p>📅 <strong>Уақыты:</strong> 2024 жылдың 24 шілдесі, 21:00</p>
+                    <p>📍 <strong>Кездесу орны:</strong> Google Meet</p>
+                    <p>👥 <strong>Оқушылар:</strong></p>
+                    <div class="students">
+                        <div class="student">Ділнәр</div>
+                        <div class="student">Ғибырат</div>
+                    </div>
+                </div>
+                
+                <p>Сіздің кеңестеріңіз біз үшін өте құнды!</p>
+            </div>
+            
+            <div class="signature">
+                <p>Құрметпен,</p>
+                <p>Ділнәр және Ғибырат</p>
+                <p>24.07.2024</p>
+            </div>
+            
+            <button class="btn" onclick="shareInvitation()">Шақыруды бөлісу</button>
+        </div>
+    </div>
+
+    <script>
+        // Жауапты тексеру
+        function checkAnswer(element, selectedOption) {
+            const correctAnswer = 'C';
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'wrong');
+                if(opt.getAttribute('data-option') === correctAnswer) {
+                    opt.classList.add('correct');
+                }
+            });
+            
+            if(selectedOption === correctAnswer) {
+                element.classList.add('correct');
+                setTimeout(() => {
+                    showInvitation();
+                }, 1000);
+            } else {
+                element.classList.add('wrong');
+            }
+        }
+        
+        // Шақыруды көрсету
+        function showInvitation() {
+            document.getElementById('initialView').classList.add('hidden');
+            document.getElementById('invitationContent').classList.remove('hidden');
+        }
+        
+        // Тестті бастау
+        function startChallenge() {
+            document.getElementById('initialView').querySelector('p:nth-of-type(3)').style.display = 'none';
+            document.getElementById('challenge').classList.remove('hidden');
+        }
+        
+        // Бөлісу функциясы
+        function shareInvitation() {
+            if(navigator.share) {
+                navigator.share({
+                    title: 'Жұптық жұмыс презентациясына шақыру',
+                    text: 'Құрметті Анэль апай, біз сізді жұптық жұмысымыздың қорытындысын көрсетуге шақырамыз!',
+                    url: window.location.href
+                }).catch(err => {
+                    console.log('Бөлісу сәтсіз аяқталды:', err);
+                });
+            } else {
+                alert('Сілтемені қолмен көшіріп алыңыз:\n' + window.location.href);
+                
+            }
+        }
+    </script>
+</body>
+</html>
